@@ -5,7 +5,7 @@ using RestAPI.Models.Entity;
 
 namespace RestAPI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<AppUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -15,21 +15,22 @@ namespace RestAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<AppUser>()
-            .HasMany(e => e.ProyectosProfesor)
-            .WithOne(e => e.Profesor)
-            .HasForeignKey(e => e.IdProfesor)
-            .IsRequired(false);
+            // Relaciones múltiples entre Reserva y Usuario
+            modelBuilder.Entity<ReservaEntity>()
+                .HasOne(r => r.Profesor)
+                .WithMany(u => u.Reservas)
+                .HasForeignKey(r => r.ProfesorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<AppUser>()
-            .HasMany(e => e.ProyectosAlumno)
-            .WithOne(e => e.Alumno)
-            .HasForeignKey(e => e.IdAlumno)
-            .IsRequired();
+            // Clave primaria personalizada (email o GUID como string)
+            modelBuilder.Entity<UsuarioEntity>()
+                .HasKey(u => u.Id);
         }
         //Add models here
-        public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<ProyectoEntity> Proyectos { get; set; }
+        public DbSet<UsuarioEntity> Usuarios { get; set; }
+        public DbSet<ReservaEntity> Reservas { get; set; }
+        public DbSet<FranjaHorariaEntity> FranjasHorarias { get; set; }
+        public DbSet<DiaEntity> DiasNoLectivos { get; set; }
 
     }
 }
