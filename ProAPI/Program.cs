@@ -23,8 +23,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 // Add services to the container.
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IFranjaHorariaRepository, FranjaHorariaRepository>();
+builder.Services.AddScoped<IDiaRepository, DiaRepository>();
 builder.Services.AddAutoMapper(typeof(ApplicationMapper));
 //Logger setup
 builder.Logging.ClearProviders();
@@ -34,7 +36,7 @@ builder.Logging.AddConsole();
 builder.Services.AddMemoryCache();
 
 //.Net Identity Configuration
-builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<UsuarioEntity, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Setting Authentication Code
 var key = builder.Configuration.GetValue<string>("ApiSettings:SecretKey");

@@ -15,10 +15,17 @@ namespace RestAPI.AutoMapper
     {
         public ApplicationMapper()
         {
-            CreateMap<AppUser, UserDto>().ReverseMap();
-            CreateMap<ProyectoDTO, ProyectoEntity>().ReverseMap();
-            CreateMap<CreateProyectoDTO, ProyectoEntity>().ReverseMap();
-            CreateMap<CreateProyectoUserDTO, ProyectoEntity>().ReverseMap();
+            CreateMap<UsuarioEntity, UsuarioDTO>().ReverseMap();
+
+            CreateMap<ReservaDTO, ReservaEntity>().ReverseMap();
+            CreateMap<CreateReservaDTO, ReservaEntity>().ReverseMap();
+            
+            CreateMap<DiaDTO, DiaEntity>().ReverseMap();
+            CreateMap<CreateDiaDTO, DiaEntity>().ReverseMap();
+
+            CreateMap<FranjaHorariaDTO, FranjaHorariaEntity>().ReverseMap();
+            CreateMap<CreateFranjaHorariaDTO, FranjaHorariaEntity>().ReverseMap();
+            
 
         }
     }
