@@ -1,13 +1,14 @@
 ﻿namespace RestAPI.Controllers
 {
     using AutoMapper;
+    using global::AutoMapper;
+    using global::RestAPI.Repository;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using global::RestAPI.Repository;
-    using global::AutoMapper;
+
 
     namespace RestAPI.Controllers
     {
@@ -27,27 +28,27 @@
                 _logger = logger;
             }
 
-            // GET: api/[controller]
             [HttpGet]
-            [Authorize(Roles = "profesor,administrador")]
+            [Authorize(Roles = "admin")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
             public async Task<IActionResult> GetAll()
             {
                 try
                 {
-                    var entities = await _repository.GetAllAsync();
-                    var dtos = _mapper.Map<List<TDto>>(entities);
-                    return Ok(dtos);
+                    var entities = _mapper.Map<List<TDto>>(await _repository.GetAllAsync());
+                    return Ok(entities);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error al obtener entidades");
+                    _logger.LogError(ex, "Error fetching data");
                     return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 }
             }
 
-            // GET: api/[controller]/{id}
+            [Authorize(Roles = "admin")]
             [HttpGet("{id:int}", Name = "[controller]_GetEntity")]
-            [Authorize(Roles = "profesor,administrador")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
             public async Task<IActionResult> Get(int id)
             {
                 try
@@ -59,20 +60,20 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error al obtener la entidad con id {Id}", id);
+                    _logger.LogError(ex, "Error fetching data");
                     return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 }
             }
 
-            // POST: api/[controller]
+            [Authorize(Roles = "admin")]
             [HttpPost]
-            [Authorize(Roles = "profesor,administrador")]
+            [ProducesResponseType(StatusCodes.Status201Created)]
+            [ProducesResponseType(StatusCodes.Status400BadRequest)]
             public async Task<IActionResult> Create([FromBody] TCreateDto createDto)
             {
                 try
                 {
-                    if (!ModelState.IsValid)
-                        return BadRequest(ModelState);
+                    if (!ModelState.IsValid) return BadRequest(ModelState);
 
                     var entity = _mapper.Map<TEntity>(createDto);
                     await _repository.CreateAsync(entity);
@@ -82,20 +83,20 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error al crear entidad");
+                    _logger.LogError(ex, "Error creating data");
                     return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 }
             }
 
-            // PUT: api/[controller]/{id}
+            [Authorize(Roles = "admin")]
             [HttpPut("{id:int}")]
-            [Authorize(Roles = "profesor,administrador")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
             public async Task<IActionResult> Update(int id, [FromBody] TDto dto)
             {
                 try
                 {
-                    if (!ModelState.IsValid)
-                        return BadRequest(ModelState);
+                    if (!ModelState.IsValid) return BadRequest(ModelState);
 
                     var entity = await _repository.GetAsync(id);
                     if (entity == null) return NotFound();
@@ -107,14 +108,15 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error al actualizar entidad con id {Id}", id);
+                    _logger.LogError(ex, "Error updating data");
                     return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 }
             }
 
-            // DELETE: api/[controller]/{id}
+            [Authorize(Roles = "admin")]
             [HttpDelete("{id:int}")]
-            [Authorize(Roles = "profesor,administrador")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status404NotFound)]
             public async Task<IActionResult> Delete(int id)
             {
                 try
@@ -127,7 +129,7 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error al eliminar entidad con id {Id}", id);
+                    _logger.LogError(ex, "Error deleting data");
                     return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
                 }
             }

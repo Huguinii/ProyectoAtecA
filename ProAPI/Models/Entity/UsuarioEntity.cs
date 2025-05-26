@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RestAPI.Models.Entity
 {
-    public class UsuarioEntity
+    public class UsuarioEntity : IdentityUser
     {
         [Key]
         public string Id { get; set; }
