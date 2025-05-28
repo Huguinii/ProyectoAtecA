@@ -6,7 +6,7 @@ namespace RestAPI.Models.Entity
     public class UsuarioEntity : IdentityUser
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Nombre { get; set; }

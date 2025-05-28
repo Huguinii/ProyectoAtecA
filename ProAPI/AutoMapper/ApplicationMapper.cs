@@ -15,7 +15,8 @@ namespace RestAPI.AutoMapper
     {
         public ApplicationMapper()
         {
-            CreateMap<UsuarioEntity, UsuarioDTO>().ReverseMap();
+            CreateMap<UsuarioDTO, UsuarioEntity>().ReverseMap();
+            CreateMap<CreateUsuarioDTO, UsuarioEntity>().ReverseMap();
 
             CreateMap<ReservaDTO, ReservaEntity>().ReverseMap();
             CreateMap<CreateReservaDTO, ReservaEntity>().ReverseMap();
