@@ -2,8 +2,8 @@
 
 namespace WpfAulaAtecA.ViewModel
 {
-    public partial class DiasNoLectivosViewModel : ObservableObject
-        {
+    public partial class DiasNoLectivosViewModel : ViewModelBase
+    {
 
         }
 }

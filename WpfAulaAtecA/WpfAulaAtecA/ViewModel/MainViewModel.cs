@@ -9,11 +9,13 @@ namespace WpfAulaAtecA.ViewModel
 
         private ViewModelBase? _selectedViewModel;
 
-        public MainViewModel(ReservasPendientesViewModel reservasPendientesViewModel, LoginViewModel loginViewModel)
+        public MainViewModel(ReservasPendientesViewModel reservasPendientesViewModel, LoginViewModel loginViewModel, FranjasHorariasViewModel franjasHorariasViewModel, DiasNoLectivosViewModel diasNoLectivosViewModel)
         {
             _selectedViewModel = loginViewModel;
             ReservasPendientesViewModel = reservasPendientesViewModel;
             LoginViewModel = loginViewModel;
+            FranjasHorariasViewModel = franjasHorariasViewModel;
+            DiasNoLectivosViewModel = diasNoLectivosViewModel;
         }
 
         public ViewModelBase? SelectedViewModel
@@ -27,6 +29,8 @@ namespace WpfAulaAtecA.ViewModel
 
         public ReservasPendientesViewModel ReservasPendientesViewModel { get; }
         public LoginViewModel LoginViewModel { get; }
+        public DiasNoLectivosViewModel DiasNoLectivosViewModel { get; }
+        public FranjasHorariasViewModel FranjasHorariasViewModel { get; }
 
         public async override Task LoadAsync()
         {

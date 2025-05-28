@@ -19,33 +19,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
-            <TextBlock Text="Login" 
-                       FontSize="24" 
-                       FontWeight="Bold" 
-                       HorizontalAlignment="Center" 
-                       Margin="0,0,0,20" />
-
-            <TextBox Text="{Binding UserName}" 
-                     Height="40" 
-                     FontSize="14"
-                     Margin="0,0,0,10" />
-
-            <PasswordBox Height="40" 
-                         FontSize="14"
-                         Margin="0,0,0,10"
-                         PasswordChanged="PasswordChangedHandler"  />
-
-            <Button Content="Login" 
-                    Command="{Binding LoginCommand}" 
-                    Width="100" 
-                    Height="40" 
-                    Background="Blue" 
-                    Foreground="White" 
-                    FontSize="14"
-                    HorizontalAlignment="Center" />
-        </StackPanel>
-
         <TextBlock Text="{Binding ErrorMessage}" 
                    Foreground="Red" 
                    FontSize="14" 

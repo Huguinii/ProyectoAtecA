@@ -15,7 +15,7 @@ namespace WpfAulaAtecA.Services
     {
         public async Task<bool> LoginAsync(string username, string password)
         {
-            // Llamada a la api con HttpClient
+            // Falta llamada a la api con HttpClient
             await Task.Delay(500);
 
             return username == "admin@iescomercio.com" && password == "admin123";

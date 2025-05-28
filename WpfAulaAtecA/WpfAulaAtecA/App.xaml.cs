@@ -34,6 +34,7 @@ namespace WpfAulaAtecA
             services.AddTransient<ReservasPendientesViewModel>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<DiasNoLectivosViewModel>();
+            services.AddTransient<FranjasHorariasViewModel>();
 
 
 

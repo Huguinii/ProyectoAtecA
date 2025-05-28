@@ -28,6 +28,7 @@ namespace RestAPI.Data
         }
         //Add models here
         public DbSet<UsuarioEntity> Usuarios { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ReservaEntity> Reservas { get; set; }
         public DbSet<FranjaHorariaEntity> FranjasHorarias { get; set; }
         public DbSet<DiaEntity> DiasNoLectivos { get; set; }

@@ -2,8 +2,8 @@
 
 namespace WpfAulaAtecA.ViewModel
 {
-    public partial class ReservasPendientesViewModel : ViewModelBase
-    {
+    public partial class FranjasHorariasViewModel : ViewModelBase
+        {
 
         }
 }
