@@ -23,5 +23,13 @@ namespace WpfAulaAtecA.View
         {
             InitializeComponent();
         }
+
+        private void PasswordChangedHandler(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginViewModel vm && sender is PasswordBox pb)
+            {
+                vm.SetPassword(pb.Password);
+            }
+        }
     }
 }

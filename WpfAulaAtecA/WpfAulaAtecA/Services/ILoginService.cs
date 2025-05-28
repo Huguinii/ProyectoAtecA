@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace WpfAulaAtecA.Services
 {
-    class ILoginService
+    public interface ILoginService
     {
+        Task<bool> LoginAsync(string username, string password);
+    }
+
+    public class LoginService : ILoginService
+    {
+        public async Task<bool> LoginAsync(string username, string password)
+        {
+            // Llamada a la api con HttpClient
+            await Task.Delay(500);
+
+            return username == "admin@iescomercio.com" && password == "admin123";
+        }
     }
 }
+

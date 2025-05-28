@@ -1,7 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Net.Http;
 using System.Windows.Input;
+using WpfAulaAtecA.Models;
+using WpfAulaAtecA.Utils;
 using WpfAulaAtecA.View;
+using WpfAulaAtecA.ViewModel;
 
 namespace WpfAulaAtecA.ViewModel
 {
@@ -11,10 +15,6 @@ namespace WpfAulaAtecA.ViewModel
         private string _password;
         private string _errorMessage;
 
-        // Instancia estática de HttpClient para realizar solicitudes HTTP
-        private static readonly HttpClient httpClient = new HttpClient();
-
-        // Propiedades de enlace de datos
         public string UserName
         {
             get => _userName;
@@ -45,15 +45,49 @@ namespace WpfAulaAtecA.ViewModel
             }
         }
 
-        // Comando de inicio de sesión que llama a OnLoginAsync
         public ICommand LoginCommand { get; }
 
         public LoginViewModel()
         {
-            // Asocia el comando LoginCommand al método OnLoginAsync
-            //LoginCommand = new RelayCommand(async (parameter) => await OnLoginAsync(), CanLogin);
+            LoginCommand = new RelayCommand(async () => await OnLoginAsync(), CanLogin);
         }
 
+        private bool CanLogin()
+        {
+            return !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password);
+        }
+
+        private async System.Threading.Tasks.Task OnLoginAsync()
+        {
+            ErrorMessage = string.Empty;
+
+            if (!CanLogin())
+            {
+                ErrorMessage = "Usuario o contraseña vacíos.";
+                return;
+            }
+
+            var loginDto = new LoginUserDTO
+            {
+                Email = UserName,
+                Password = Password
+            };
+
+            var usuario = await HttpJsonClient<UserDTO>.Post("https://localhost:5001/api/login", loginDto) as UserDTO;
+
+            if (usuario != null)
+            {
+                // Login correcto → abrir ventana principal
+                var mainWindow = new MainWindow();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = mainWindow;
+                mainWindow.Show();
+            }
+            else
+            {
+                ErrorMessage = "Credenciales incorrectas.";
+            }
+        }
     }
 }
 
