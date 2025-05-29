@@ -59,10 +59,10 @@ namespace RestAPI.Repository
 
         public void ClearCache() { }
 
-        public async Task<ICollection<ReservaEntity>> GetByProfesorAsync(string profesorId)
+        public async Task<ICollection<ReservaEntity>> GetByProfesorAsync(string nombreProfesor)
         {
             return await _context.Reservas
-                .Where(r => r.ProfesorId == profesorId)
+                .Where(r => r.NombreProfesor == nombreProfesor)
                 .ToListAsync();
         }
 
@@ -73,7 +73,7 @@ namespace RestAPI.Repository
                 .ToListAsync();
         }
 
-        public async Task<bool> ExisteReserva(DateTime fecha, TimeOnly inicio, TimeOnly fin)
+        public async Task<bool> ExisteReserva(DateOnly fecha, TimeOnly inicio, TimeOnly fin)
         {
             return await _context.Reservas.AnyAsync(r =>
                 r.Fecha == fecha &&

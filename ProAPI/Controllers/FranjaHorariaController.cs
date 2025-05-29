@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestAPI.Controllers.RestAPI.Controllers;
-using RestAPI.Models.DTOs;
+using RestAPI.Models.DTOs.FranjaHorariaDTO;
 using RestAPI.Models.Entity;
 using RestAPI.Repository;
 using RestAPI.Repository.IRepository;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestAPI.Models.DTOs;
+namespace RestAPI.Models.DTOs.ReservaDTO;
 
 public class CreateReservaDTO
 {
@@ -16,5 +16,9 @@ public class CreateReservaDTO
     [Required(ErrorMessage = "Grupo is required")]
     [MaxLength(50, ErrorMessage = "Max char is 50")]
     public string Grupo { get; set; }
+
+    [Required(ErrorMessage = "NombreProfesor is required")]
+    [MaxLength(50, ErrorMessage = "Max char is 50")]
+    public string NombreProfesor { get; set; }
 
 }

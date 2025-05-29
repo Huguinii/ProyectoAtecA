@@ -7,6 +7,7 @@ using RestAPI.Models.Entity;
 using RestAPI.Repository;
 using RestAPI.Repository.IRepository;
 using System.Security.Claims;
+using RestAPI.Models.DTOs.DiaNoLectivoDTO;
 
 namespace RestAPI.Controllers
 {

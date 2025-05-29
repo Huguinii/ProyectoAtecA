@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestAPI.Models.DTOs;
+namespace RestAPI.Models.DTOs.FranjaHorariaDTO;
 
 public class FranjaHorariaDTO : CreateFranjaHorariaDTO
 {

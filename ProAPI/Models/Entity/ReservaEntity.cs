@@ -8,7 +8,7 @@ namespace RestAPI.Models.Entity
         public int Id { get; set; }
 
         [Required]
-        public DateTime Fecha { get; set; }
+        public DateOnly Fecha { get; set; }
 
         [Required]
         public TimeOnly HoraInicio { get; set; }
@@ -24,9 +24,7 @@ namespace RestAPI.Models.Entity
 
         public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
 
-
         [Required]
-        public string ProfesorId { get; set; }
-        public UsuarioEntity Profesor { get; set; }
+        public string NombreProfesor { get; set; }
     }
 }

@@ -19,10 +19,5 @@ public class CreateUsuarioDTO
 
     public string Rol { get; set; }
 
-    [Required(ErrorMessage = "Grupo is required")]
-    [MaxLength(50, ErrorMessage = "Max char is 50")]
-
-    public string TipoAutenticacion{ get; set; }
-
 
 }

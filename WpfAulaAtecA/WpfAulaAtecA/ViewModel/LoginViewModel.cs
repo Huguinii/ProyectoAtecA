@@ -48,7 +48,7 @@ namespace WpfAulaAtecA.ViewModel
 
             if (usuario != null)
             {
-                /* Login correcto → abrir ventana principal
+                /*Login correcto → abrir ventana principal
                 var mainWindow = App.Current.Services.GetService<MainWindow>();
                 mainWindow?.Show();
                 App.Current.MainWindow.Close();

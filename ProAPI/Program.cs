@@ -1,4 +1,7 @@
-
+using RestAPI.AutoMapper;
+using RestAPI.Data;
+using RestAPI.Repository;
+using RestAPI.Repository.IRepository;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -7,11 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using RestAPI.AutoMapper;
-using RestAPI.Data;
 using RestAPI.Models.Entity;
-using RestAPI.Repository;
-using RestAPI.Repository.IRepository;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,10 +22,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 // Add services to the container.
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
-builder.Services.AddScoped<IFranjaHorariaRepository, FranjaHorariaRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiaRepository, DiaRepository>();
+builder.Services.AddScoped<IFranjaHorariaRepository, FranjaHorariaRepository>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddAutoMapper(typeof(ApplicationMapper));
 //Logger setup
 builder.Logging.ClearProviders();
@@ -36,7 +36,7 @@ builder.Logging.AddConsole();
 builder.Services.AddMemoryCache();
 
 //.Net Identity Configuration
-builder.Services.AddIdentity<UsuarioEntity, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Setting Authentication Code
 var key = builder.Configuration.GetValue<string>("ApiSettings:SecretKey");
@@ -109,6 +109,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

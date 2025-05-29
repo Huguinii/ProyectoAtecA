@@ -23,9 +23,9 @@
     <DockPanel>
         <!-- Menú lateral -->
         <StackPanel DockPanel.Dock="Left" Width="200" Background="#EEEEEE">
-            <Button Content="Reservas Pendientes" Margin="10" Command="{Binding MostrarReservasCommand}" />
-            <Button Content="Franjas Horarias" Margin="10" Command="{Binding MostrarFranjasCommand}" />
-            <Button Content="Días No Lectivos" Margin="10" Command="{Binding MostrarDiasCommand}" />
+            <Button Content="Reservas Pendientes" Margin="10" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding ReservasPendientesViewModel}" />
+            <Button Content="Franjas Horarias" Margin="10" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding FranjasHorariasViewModel}" />
+            <Button Content="Días No Lectivos" Margin="10" Command="{Binding SelectViewModelCommand}" CommandParameter="{Binding DiasNoLectivosViewModel}" />
         </StackPanel>
 
         <!-- Vista dinámica -->

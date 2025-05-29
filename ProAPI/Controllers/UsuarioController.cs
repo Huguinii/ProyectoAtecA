@@ -11,7 +11,7 @@ using System.Net;
 
 namespace RestAPI.Controllers
 {
-    [Route("api/users")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : BaseController<UsuarioEntity, UsuarioDTO, CreateUsuarioDTO>
     {

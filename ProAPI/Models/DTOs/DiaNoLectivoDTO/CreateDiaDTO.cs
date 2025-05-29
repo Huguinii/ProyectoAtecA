@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestAPI.Models.DTOs;
+namespace RestAPI.Models.DTOs.DiaNoLectivoDTO;
 
 public class CreateDiaDTO
 {
@@ -11,9 +11,9 @@ public class CreateDiaDTO
     [MaxLength(50, ErrorMessage = "Max char is 50")]
     public string Motivo { get; set; }
 
-    
 
-    
+
+
 
 
 

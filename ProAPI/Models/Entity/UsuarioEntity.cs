@@ -24,7 +24,7 @@ namespace RestAPI.Models.Entity
         public string Password { get; set; }
 
         [Required]
-        public string Rol { get; set; }
+        public string Rol { get; set; } = "Profesor";
 
 
         public ICollection<ReservaEntity> Reservas { get; set; }

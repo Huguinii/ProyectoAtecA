@@ -28,5 +28,8 @@ namespace WpfAulaAtecA
         {
             await _viewModel.LoadAsync();
         }
+
+
+
     }
 }

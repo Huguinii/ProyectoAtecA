@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestAPI.Models.DTOs;
+namespace RestAPI.Models.DTOs.FranjaHorariaDTO;
 
 public class CreateFranjaHorariaDTO
 {
@@ -14,7 +14,7 @@ public class CreateFranjaHorariaDTO
     public bool EsRecreo { get; set; } = false;
     public bool Disponible { get; set; } = true;
 
-    
+
 
 
 
