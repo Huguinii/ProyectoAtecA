@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -78,7 +80,35 @@ namespace WpfAulaAtecA.Utils
 
             }
         }
+        public static async Task<T> Patch(string url, object data)
+        {
+            try
+            {
+                using HttpClient httpClient = new HttpClient();
+                var content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
+                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
+                {
+                    Content = content
+                };
 
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                else
+                {
+                    Console.WriteLine($"Error en la respuesta: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la solicitud PATCH: {ex.Message}");
+            }
+            return default;
+        }
     }
 }
 

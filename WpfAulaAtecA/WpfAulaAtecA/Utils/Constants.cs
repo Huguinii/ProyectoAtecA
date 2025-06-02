@@ -10,6 +10,6 @@ namespace WpfAulaAtecA.Utils
     public static class Constants
     {
         public const string JSON_FILTER = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
-
+        public const string RESERVAS_URL = "https://localhost:7777/api/Reserva";
     }
 }
