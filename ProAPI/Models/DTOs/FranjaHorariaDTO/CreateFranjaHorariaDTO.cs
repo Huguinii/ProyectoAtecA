@@ -14,9 +14,4 @@ public class CreateFranjaHorariaDTO
     public bool EsRecreo { get; set; } = false;
     public bool Disponible { get; set; } = true;
 
-
-
-
-
-
 }

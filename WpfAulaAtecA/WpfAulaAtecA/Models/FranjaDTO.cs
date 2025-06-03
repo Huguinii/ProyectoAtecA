@@ -9,8 +9,10 @@ namespace WpfAulaAtecA.Models
     public class FranjaDTO
     {
         public string Id { get; set; }
-        public string Nombre { get; set; }
-        public string Email { get; set; }
-        public string Rol { get; set; }
+        public TimeOnly HoraInicio { get; set; }
+        public TimeOnly HoraFin { get; set; }
+        public bool EsRecreo { get; set; }
+        public bool Disponible { get; set; }
     }
+
 }

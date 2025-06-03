@@ -57,6 +57,7 @@ namespace WpfAulaAtecA.ViewModel
                     motivo = string.Empty;
                     fecha = null;
                     MessageBox.Show("Día no lectivo añadido con éxito.");
+                    await this.LoadAsync();
                 }
                 else
                 {

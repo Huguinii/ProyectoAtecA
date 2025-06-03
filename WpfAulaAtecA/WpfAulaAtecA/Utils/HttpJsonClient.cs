@@ -106,6 +106,33 @@ namespace WpfAulaAtecA.Utils
             }
         }
 
+        public static async Task<T> Put(string url, object data)
+        {
+            try
+            {
+                AddAuthHeader();
+
+                var json = JsonSerializer.Serialize(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await httpClient.PutAsync(url, content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"PUT error: {response.StatusCode}");
+                    return default;
+                }
+
+                string result = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<T>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"PUT Exception: {ex.Message}");
+                return default;
+            }
+        }
+
+
         public static async Task DeleteAll(string url)
         {
             try
