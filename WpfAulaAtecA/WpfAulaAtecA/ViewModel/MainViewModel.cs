@@ -23,7 +23,10 @@ namespace WpfAulaAtecA.ViewModel
             get => _selectedViewModel;
             set
             {
-                SetProperty(ref _selectedViewModel, value);
+                if (SetProperty(ref _selectedViewModel, value) && value is not null)
+                {
+                    _ = value.LoadAsync(); // se lanza sin bloquear la UI
+                }
             }
         }
 

@@ -9,7 +9,7 @@
              Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
-
+    
     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
         <ItemsControl ItemsSource="{Binding Reservas}">
             <ItemsControl.ItemTemplate>
@@ -17,7 +17,7 @@
                     <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="8" Padding="10" Margin="5">
                         <StackPanel>
                             <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Grupo}" />
-                            <TextBlock Text="{Binding ProfesorNombre, StringFormat='Profesor: {0}'}" />
+                            <TextBlock Text="{Binding NombreProfesor, StringFormat='Profesor: {0}'}" />
                             <TextBlock Text="{Binding Fecha, StringFormat='Fecha: {0:dd/MM/yyyy}'}" />
                             <TextBlock Text="{Binding HoraInicio, StringFormat='Desde: {0:hh\\:mm}'}" />
                             <TextBlock Text="{Binding HoraFin, StringFormat='Hasta: {0:hh\\:mm}'}" />

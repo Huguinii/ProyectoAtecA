@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfAulaAtecA.Models
 {
-    public class LoginUserDTO
+    public class UserLoginDTO
     {
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string Token { get; set; }
     }
 }

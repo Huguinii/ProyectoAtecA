@@ -33,12 +33,10 @@ namespace WpfAulaAtecA.ViewModel
         {
             if (reserva == null) return;
 
-            bool ok = await _reservaService.AprobarReserva(reserva.Id);
-            if (ok)
-            {
-                MessageBox.Show("Reserva aprobada.");
-                await LoadAsync();
-            }
+            await _reservaService.AprobarReserva(reserva.Id);
+
+            await this.LoadAsync();
+
         }
 
 
@@ -47,12 +45,9 @@ namespace WpfAulaAtecA.ViewModel
         {
             if (reserva == null) return;
 
-            bool ok = await _reservaService.RechazarReserva(reserva.Id);
-            if (ok)
-            {
-                MessageBox.Show("Reserva rechazada.");
-                await LoadAsync();
-            }
+            await _reservaService.RechazarReserva(reserva.Id);
+
+            await this.LoadAsync();
         }
 
     }

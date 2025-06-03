@@ -29,7 +29,7 @@
             }
 
             [HttpGet]
-            [Authorize(Roles = "admin")]
+            [Authorize]
             [ProducesResponseType(StatusCodes.Status200OK)]
             public async Task<IActionResult> GetAll()
             {
@@ -45,7 +45,7 @@
                 }
             }
 
-            [Authorize(Roles = "admin")]
+            [Authorize]
             [HttpGet("{id:int}", Name = "[controller]_GetEntity")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,7 +65,7 @@
                 }
             }
 
-            [Authorize(Roles = "admin")]
+            [Authorize]
             [HttpPost]
             [ProducesResponseType(StatusCodes.Status201Created)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,7 +88,7 @@
                 }
             }
 
-            [Authorize(Roles = "admin")]
+            [Authorize]
             [HttpPut("{id:int}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -113,7 +113,7 @@
                 }
             }
 
-            [Authorize(Roles = "admin")]
+            [Authorize]
             [HttpDelete("{id:int}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]

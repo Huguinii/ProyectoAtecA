@@ -13,8 +13,8 @@ namespace WpfAulaAtecA.Interface
         Task AddReservaToApi(object reserva);
         Task<List<ReservaDTO>> GetAllReservas();
         Task<List<ReservaDTO>> GetReservasPendientes();
-        Task<bool> AprobarReserva(int id);
-        Task<bool> RechazarReserva(int id);
+        Task<bool> AprobarReserva(string id);
+        Task<bool> RechazarReserva(string id);
     }
 
 }

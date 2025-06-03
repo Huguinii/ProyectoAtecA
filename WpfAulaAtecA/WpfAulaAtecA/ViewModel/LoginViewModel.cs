@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using WpfAulaAtecA.Models;
 using WpfAulaAtecA.Utils;
 
@@ -38,23 +39,20 @@ namespace WpfAulaAtecA.ViewModel
                 return;
             }
 
-            var loginDto = new LoginUserDTO
+            var loginDto = new UserLoginDTO
             {
-                Email = UserName,
+                UserName = UserName,
                 Password = Password
             };
 
-            var usuario = await HttpJsonClient<UserDTO>.Post("https://localhost:5001/api/login", loginDto) as UserDTO;
+            var response = await HttpJsonClient<ApiResponse<LoginUserDTO>>.Post("https://localhost:7777/api/users/login", loginDto);
 
-            if (usuario != null)
+            if (response != null && response.IsSuccess && response.Result != null)
             {
-                /*Login correcto → abrir ventana principal
-                var mainWindow = App.Current.Services.GetService<MainWindow>();
-                mainWindow?.Show();
-                App.Current.MainWindow.Close();
-                App.Current.MainWindow = mainWindow;
-                mainWindow.Show();
-                */
+                var usuario = response.Result;
+                AuthSession.Token = usuario.Token;
+
+                App.Current.Services.GetService<MainViewModel>().SelectedViewModel = App.Current.Services.GetService<MainViewModel>().ReservasPendientesViewModel;
             }
             else
             {
@@ -63,5 +61,3 @@ namespace WpfAulaAtecA.ViewModel
         }
     }
 }
-
-

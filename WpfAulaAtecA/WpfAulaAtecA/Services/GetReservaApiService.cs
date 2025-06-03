@@ -61,7 +61,7 @@ namespace WpfAulaAtecA.Services
                 return new List<ReservaDTO>();
             }
         }
-        public async Task<bool> AprobarReserva(int id)
+        public async Task<bool> AprobarReserva(string id)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace WpfAulaAtecA.Services
             }
         }
 
-        public async Task<bool> RechazarReserva(int id)
+        public async Task<bool> RechazarReserva(string id)
         {
             try
             {

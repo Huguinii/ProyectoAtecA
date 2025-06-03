@@ -30,11 +30,11 @@ namespace WpfAulaAtecA
             services.AddTransient<MainWindow>();
 
             //view viewModels
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<ReservasPendientesViewModel>();
-            services.AddTransient<LoginViewModel>();
-            services.AddTransient<DiasNoLectivosViewModel>();
-            services.AddTransient<FranjasHorariasViewModel>();
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<ReservasPendientesViewModel>();
+            services.AddSingleton<LoginViewModel>();
+            services.AddSingleton<DiasNoLectivosViewModel>();
+            services.AddSingleton<FranjasHorariasViewModel>();
 
 
 

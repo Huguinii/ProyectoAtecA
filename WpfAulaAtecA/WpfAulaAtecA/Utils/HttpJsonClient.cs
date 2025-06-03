@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -12,107 +9,120 @@ namespace WpfAulaAtecA.Utils
 {
     public static class HttpJsonClient<T>
     {
-        public static async Task<T> Get(string path)
+        public static string AuthToken { get; set; }
+
+        private static readonly HttpClient httpClient = new();
+
+        private static void AddAuthHeader()
+        {
+            httpClient.DefaultRequestHeaders.Authorization = null;
+
+            if (!string.IsNullOrEmpty(AuthSession.Token))
+            {
+                httpClient.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", AuthSession.Token);
+            }
+        }
+
+
+        public static async Task<T> Get(string url)
         {
             try
             {
-                using HttpClient httpClient = new HttpClient();
+                AddAuthHeader();
+
+                var response = await httpClient.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage datos = await httpClient.GetAsync(path);
-                    string dataget = await datos.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<T>(dataget);
+                    Console.WriteLine($"GET error: {response.StatusCode}");
+                    return default;
                 }
+
+                string content = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"GET Exception: {ex.Message}");
+                return default;
             }
-            return default;
         }
-    
 
-    public static async Task<object> Post(string url,object data)
-    {
-        try
+        public static async Task<T> Post(string url, object data)
         {
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                // Serializar el objeto 'data' (PokemonDTO) a JSON
-                string jsonContent = JsonSerializer.Serialize(data);
+                AddAuthHeader();
 
-                // Crear el contenido HTTP con el tipo adecuado para enviar JSON
-                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var json = JsonSerializer.Serialize(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                // Realizar la solicitud POST
-                HttpResponseMessage response = await httpClient.PostAsync(url, content);
-
-                // Verificar si la respuesta fue exitosa
-                if (response.IsSuccessStatusCode)
+                var response = await httpClient.PostAsync(url, content);
+                if (!response.IsSuccessStatusCode)
                 {
-                    // Leer el contenido de la respuesta y deserializarlo
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    Console.WriteLine($"POST error: {response.StatusCode}");
+                    return default;
                 }
-                else
-                {
-                    Console.WriteLine("Error en la respuesta: " + response.StatusCode);
-                }
+
+                string result = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<T>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error en la solicitud POST: {ex.Message}");
-        }
-        return default;
-    }
-
-
-        public static async Task DeleteAll(string url)
-        {
-            using HttpClient httpClient = new HttpClient();
-
-            var response = await httpClient.DeleteAsync(url);
-            if (!response.IsSuccessStatusCode)
+            catch (Exception ex)
             {
-                string errorDetails = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error:{response.StatusCode}");
-                Console.WriteLine($"Detalles:{errorDetails}");
-
+                Console.WriteLine($"POST Exception: {ex.Message}");
+                return default;
             }
         }
+
         public static async Task<T> Patch(string url, object data)
         {
             try
             {
-                using HttpClient httpClient = new HttpClient();
-                var content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-                HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
+                AddAuthHeader();
+
+                var request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
                 {
-                    Content = content
+                    Content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json")
                 };
 
-                HttpResponseMessage response = await httpClient.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
+                var response = await httpClient.SendAsync(request);
+                if (!response.IsSuccessStatusCode)
                 {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    Console.WriteLine($"PATCH error: {response.StatusCode}");
+                    return default;
                 }
-                else
+
+                string result = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(result))
                 {
-                    Console.WriteLine($"Error en la respuesta: {response.StatusCode}");
+                    return default; // Por ejemplo false para bool
+                }
+                return JsonSerializer.Deserialize<T>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"PATCH Exception: {ex.Message}");
+                return default;
+            }
+        }
+
+        public static async Task DeleteAll(string url)
+        {
+            try
+            {
+                AddAuthHeader();
+
+                var response = await httpClient.DeleteAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorDetails = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"DELETE Error: {response.StatusCode} - {errorDetails}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error en la solicitud PATCH: {ex.Message}");
+                Console.WriteLine($"DELETE Exception: {ex.Message}");
             }
-            return default;
         }
     }
 }
-
-
-
-
-
