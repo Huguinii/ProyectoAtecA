@@ -10,12 +10,4 @@ public class CreateDiaDTO
     [Required(ErrorMessage = "Motivo is required")]
     [MaxLength(50, ErrorMessage = "Max char is 50")]
     public string Motivo { get; set; }
-
-
-
-
-
-
-
-
 }

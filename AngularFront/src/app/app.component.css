@@ -16,7 +16,7 @@ header {
   height: 60px;
   padding: var(--content-padding);
   box-shadow: 0px 5px 25px var(--shadow-color);
-  background-image: url('../assets/GreenBg.png');
+  background-color: #f8f9fa;
   background-size: cover;
 }
 

@@ -18,7 +18,6 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
-  isFadingOut = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -35,10 +34,9 @@ export class RegisterComponent {
 
     const registroDto: RegistroDTO = {
       name: this.username,
-      userName: this.username,
       email: this.email,
       password: this.password,
-      role: 'Angular_User'
+      role: 'admin'
     };
 
     try {
@@ -51,11 +49,6 @@ export class RegisterComponent {
   }
 
   goToLogin() {
-    
-    this.isFadingOut = true;
-    setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 500); 
+    this.router.navigate(['/']);
   }
-
 }

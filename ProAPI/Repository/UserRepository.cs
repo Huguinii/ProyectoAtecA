@@ -118,7 +118,7 @@ namespace RestAPI.Repository
 
         public async Task<UserLoginResponseDto?> Register(UserRegistrationDto userRegistrationDto)
         {
-            AppUser user = new AppUser()
+            AppUser user = new AppUser
             {
                 UserName = userRegistrationDto.Name,
                 Name = userRegistrationDto.Name,
@@ -126,18 +126,39 @@ namespace RestAPI.Repository
                 NormalizedEmail = userRegistrationDto.Email.ToUpper()
             };
 
-
             var result = await _userManager.CreateAsync(user, userRegistrationDto.Password);
             if (!result.Succeeded)
             {
                 return null;
             }
+
+            // Releer el usuario para asegurar que tenga ID válido
+            user = await _userManager.FindByEmailAsync(user.Email);
+
+            // Crear el rol si no existe
             if (!await _roleManager.RoleExistsAsync(userRegistrationDto.Role))
             {
-                await _roleManager.CreateAsync(new IdentityRole(userRegistrationDto.Role));
-            }
-            await _userManager.AddToRoleAsync(user, userRegistrationDto.Role);
+                var role = new IdentityRole
+                {
+                    Name = userRegistrationDto.Role,
+                    NormalizedName = userRegistrationDto.Role.ToUpper()
+                };
 
+                var roleResult = await _roleManager.CreateAsync(role);
+                if (!roleResult.Succeeded)
+                {
+                    throw new Exception($"Role creation failed: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}");
+                }
+            }
+
+            // Asignar rol al usuario
+            var addRoleResult = await _userManager.AddToRoleAsync(user, userRegistrationDto.Role);
+            if (!addRoleResult.Succeeded)
+            {
+                throw new Exception($"Adding role failed: {string.Join(", ", addRoleResult.Errors.Select(e => e.Description))}");
+            }
+
+            // Verificar roles asignados
             var roles = await _userManager.GetRolesAsync(user);
             var token = GenerateJwtToken(user, roles);
 
@@ -147,5 +168,7 @@ namespace RestAPI.Repository
                 User = user
             };
         }
+
+
     }
 }

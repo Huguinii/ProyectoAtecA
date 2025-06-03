@@ -14,6 +14,11 @@ public class CreateUsuarioDTO
 
     public string Email { get; set; }
 
+    [Required(ErrorMessage = "Password is required")]
+    [MaxLength(50, ErrorMessage = "Max char is 50")]
+
+    public string Password { get; set; }
+
     [Required(ErrorMessage = "Rol is required")]
     [MaxLength(50, ErrorMessage = "Max char is 50")]
 

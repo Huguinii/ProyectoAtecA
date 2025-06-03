@@ -7,7 +7,7 @@ import { RegistroDTO } from '../models/registroDTO';
   providedIn: 'root'
 })
 export class AuthService {
-  readonly baseUrl = 'https://localhost:7016/api/users';
+  readonly baseUrl = 'https://localhost:7777/api/users';
   private loginUrl = `${this.baseUrl}/login`;
   private registerUrl = `${this.baseUrl}/register`;
   private token: string | null = null;

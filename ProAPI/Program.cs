@@ -36,7 +36,7 @@ builder.Logging.AddConsole();
 builder.Services.AddMemoryCache();
 
 //.Net Identity Configuration
-builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 //Setting Authentication Code
 var key = builder.Configuration.GetValue<string>("ApiSettings:SecretKey");

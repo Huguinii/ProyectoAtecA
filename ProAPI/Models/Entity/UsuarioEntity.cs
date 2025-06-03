@@ -14,9 +14,6 @@ namespace RestAPI.Models.Entity
         public string Nombre { get; set; }
 
         [Required]
-        public string Apellido { get; set; }
-
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
 

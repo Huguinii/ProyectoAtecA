@@ -14,15 +14,14 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
-  isFadingOut = false;
+  username: string = 'Rafa';
+  password: string = 'Rafa1234?';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   async login() {
     const loginDto: LoginDTO = {
-      email: this.email, 
+      username: this.username, 
       password: this.password,
       token: ''
     };
@@ -30,10 +29,7 @@ export class LoginComponent {
       const response = await firstValueFrom(this.authService.login(loginDto));
       if (response?.result?.token) {
         localStorage.setItem('token', response.result.token);
-        this.isFadingOut = true;
-        setTimeout(() => {
-          this.router.navigate(['/principal']);
-        }, 500);        
+        this.router.navigate(['/principal']);
       } else {
         alert('Error: Usuario o contraseña incorrectos.');
       }      
@@ -43,9 +39,6 @@ export class LoginComponent {
   }
 
   goToRegister() {
-    this.isFadingOut = true;
-    setTimeout(() => {
-      this.router.navigate(['/registro']);
-    }, 500); 
+    this.router.navigate(['/registro']);
   }
 }
