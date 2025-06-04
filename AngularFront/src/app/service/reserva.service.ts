@@ -35,7 +35,7 @@ export class ReservaService {
   const response = await fetch(this.baseUrl, {
     method: 'POST',
     headers: this.getAuthHeaders(),
-    body: JSON.stringify({ CrearReservaModel: dtoFormateado })
+    body: JSON.stringify(dtoFormateado)
   });
 
   if (!response.ok) {
