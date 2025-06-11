@@ -68,6 +68,7 @@ namespace WpfAulaAtecA.ViewModel
             {
                 MessageBox.Show($"Error al guardar: {ex.Message}");
             }
+            await this.LoadAsync();
         }
     }
 }

@@ -4,10 +4,16 @@
   margin: auto;
 }
 
-.mensaje {
-  margin: 10px 0;
-  color: green;
+.error {
+  color: lightsalmon;
   font-weight: bold;
+  margin-top: 10px;
+}
+
+.detalle-error {
+  color: red;
+  font-style: italic;
+  margin-top: 4px;
 }
 
 .formulario {

@@ -1,7 +1,10 @@
 <div class="container">
   <h1>Reservas Aula AtecA</h1>
 
-  <div *ngIf="mensaje()" class="mensaje">{{ mensaje() }}</div>
+  <div *ngIf="mensajeGeneral()" class="error"> {{ mensajeGeneral() }} </div>
+  
+  <div *ngIf="mensajeDetalle()" class="detalle-error"> {{ mensajeDetalle() }} </div>
+
 
   <form (ngSubmit)="crearReserva()" class="formulario">
     <label>
@@ -11,6 +14,7 @@
     <label>
       Hora inicio:
       <input type="time" [value]="nuevaReserva().horaInicio" (input)="updateCampo('horaInicio', $any($event.target).value)">
+      
     </label>
     <label>
       Hora fin:
